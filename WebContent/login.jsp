@@ -10,18 +10,28 @@
 </head>
 <body>
  <div class="container">
-      <form class="form-signin">
+ 	<div class="alert alert-primary">
+		<p>${erro}</p>
+	</div>
+      <form class="form-signin" method="post" action="loginController">
         <h2 class="form-signin-heading">SAITH</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="senha" name="senha" class="form-control" placeholder="Senha" required>
         <div class="checkbox hidden">
           <label>
             <input type="checkbox"  value="remember-me"> Remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <div class="row">
+        <div class="col-md-4">
+        <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </div>
+        <div class="col-md-8">
+        <a class="btn btn-primary btn-block" href="FuncionarioController">Novo Funcionário</a>
+        </div>
+        </div>
       </form>
     </div>
 </body>

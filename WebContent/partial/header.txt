@@ -6,14 +6,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#" class = "navbar-brand">SITH</a>
+                <a href="Index" class = "navbar-brand">SITH</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="Princial">Princial</a></li>
-                    <li><a href="Paciente">Paciente</a></li>
-                    <li><a href="Usuario">Usuario</a></li>
-                    <li><a href="Detalhes">Detalhes</a></li>
+                    <li class="dropdown">
+                    	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Paciente<span class="caret"></span></a>
+                    	<ul class="dropdown-menu">
+                  			<li><a href="PacienteController">Inclus&atilde;o</a></li>
+                  			<li><a href="ConsultaController">Consulta</a></li>
+                  		</ul>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
