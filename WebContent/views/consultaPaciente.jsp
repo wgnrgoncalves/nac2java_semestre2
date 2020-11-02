@@ -17,6 +17,9 @@
 	<div class="alert alert-primary">
 		<p>${erro}</p>
 	</div>
+	<div class="alert alert-primary">
+		<p>${msg}</p>
+	</div>
 		<form action="PacienteConsultaController" method="get">
 			<div class="row">
 				<div class="form-group col-md-8">
@@ -54,7 +57,7 @@
 					<td>${paciente.cpf}</td>
 					<td>${paciente.responsavel}</td>
 					<td>${paciente.telefone}</td>
-					<td><a href="PacienteDetalhesController?acao=RandInterfacao&id=${paciente.id}">Rand</a></td>
+					<td><a href="PacienteDetalhesController?acao=RandInternacao&id=${paciente.id}">Rand</a></td>
 					<td><a href="PacienteDetalhesController?acao=Detalhes&id=${paciente.id}">Detalhes</a></td>
 					
 				</tr>

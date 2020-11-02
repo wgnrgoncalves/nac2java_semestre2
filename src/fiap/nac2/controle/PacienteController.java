@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import fiap.nac2.modelo.Funcionario;
 import fiap.nac2.modelo.Paciente;
 import fiap.nac2.negocio.PacienteBO;
 
@@ -26,6 +28,16 @@ public class PacienteController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse hres = (HttpServletResponse) response;
+		HttpServletRequest hreq = (HttpServletRequest) request;
+		HttpSession session = hreq.getSession();
+
+		Funcionario u = (Funcionario) session.getAttribute("usuarioLogado");
+		if (u == null) {
+			session.invalidate();
+			hres.sendRedirect("login.jsp");
+		}
+		
 		
 		request.getRequestDispatcher("/views/cadastraPaciente.jsp").forward(request, response);
 	}
@@ -33,7 +45,18 @@ public class PacienteController extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpServletResponse hres = (HttpServletResponse) response;
+		HttpServletRequest hreq = (HttpServletRequest) request;
+		HttpSession session = hreq.getSession();
+
+		Funcionario u = (Funcionario) session.getAttribute("usuarioLogado");
+		if (u == null) {
+			session.invalidate();
+			hres.sendRedirect("login.jsp");
+		}
 		
+
 		//pegando informações do paciente através do formulário
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf");

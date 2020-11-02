@@ -20,6 +20,31 @@ public class PacienteDao implements Dao<Paciente> {
 	@Override
 	public Paciente recuperaPorId(long id) throws Exception {
 		// TODO Auto-generated method stub
+
+		
+		String sql = "select id, nome, telefone, email, cpf, responsavel, nascimento from tbl_paciente where id = ? ";
+		
+		try (Connection con = new ConectionFactory().getConexao();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setLong(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Paciente p = new Paciente();
+				p.setId(rs.getLong(1));
+				p.setNome(rs.getString(2));
+				p.setTelefone(rs.getString(3));
+				p.setEmail(rs.getString(4));
+				p.setCpf(rs.getLong(5));
+				p.setResponsavel(rs.getString(6));
+				p.setNascimento(UtilBanco.converteDt(rs.getDate(7)));
+				return p;
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		return null;
 	}
 

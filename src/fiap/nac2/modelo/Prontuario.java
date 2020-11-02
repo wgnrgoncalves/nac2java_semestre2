@@ -2,7 +2,9 @@ package fiap.nac2.modelo;
 
 import java.time.LocalDateTime;
 
-public class Prontuario {
+
+
+public class Prontuario {        
 	private long id;
 
 	private LocalDateTime data;

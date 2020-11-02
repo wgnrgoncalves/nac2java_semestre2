@@ -73,8 +73,58 @@ public class InternacaoDao implements Dao<Internacao> {
 		else if (parametro.containsKey("motivo")) {
 			LiberacaoLeito ll = (LiberacaoLeito)parametro.get("motivo");
 			return recuperaPorTipoLiberacao(ll);
-		}	
+		}
+		
 		return null;
+	}
+	
+	private List<Internacao> recuperaPorPaciente(Paciente paciente) throws Exception{
+		
+		String sql = "SELECT i.id, i.entrada, i.saida, i.motivo, i.paciente_id, i.leito_id, i.funcionario_id, "
+				+ " p.nome, l.numero, l.tipo, f.nome as medico "
+				+ "FROM TBL_INTERNACAO i JOIN TBL_PACIENTE p ON (i.paciente_id = p.id) "
+				+ "JOIN TBL_LEITO l ON (i.leito_id = l.id) "
+				+ "JOIN TBL_FUNCIONARIO f ON (i.funcionario_id = f.id) "
+				+ "WHERE i.paciente_id = ? order by i.entrada desc";
+		List<Internacao> lst = new ArrayList<Internacao>();
+		try(Connection con = new ConectionFactory().getConexao();
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setLong(1, paciente.getId());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Internacao inter = new Internacao();
+				inter.setId(rs.getLong("id"));
+				inter.setMotivo(LiberacaoLeito.values()[rs.getInt("motivo")]);
+				
+				Paciente pac = new Paciente();
+				pac.setId(rs.getLong("paciente_id"));
+				pac.setNome(rs.getString("nome"));
+				inter.setPaciente(pac);
+				
+				Leito leito = new Leito();
+				leito.setId(rs.getLong("leito_id"));
+				leito.setNumero(rs.getString("numero"));
+				leito.setTipo(TipoLeito.valueOf(rs.getString("tipo")));
+				inter.setLeito(leito);
+				
+				Funcionario func = new Funcionario();
+				func.setId(rs.getLong("funcionario_id"));
+				func.setNome(rs.getString("medico"));
+				inter.setFuncionario(func);
+								
+				inter.setEntrada(UtilBanco.converte(rs.getDate("entrada")));
+				inter.setSaida(UtilBanco.converte(rs.getDate("saida")));
+				
+				lst.add(inter);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return lst;
+
 	}
 
 	private List<Internacao> recuperaPorTipoLiberacao(LiberacaoLeito ll) throws Exception {
@@ -115,10 +165,7 @@ public class InternacaoDao implements Dao<Internacao> {
 		return retorno;
 	}
 
-	private List<Internacao> recuperaPorPaciente(Paciente paciente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public void altera(Internacao entidade) throws Exception {

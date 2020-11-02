@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 
 public class UtilBanco {
-	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss"); 
-	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
+	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	
 	private static DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private static SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy"); 

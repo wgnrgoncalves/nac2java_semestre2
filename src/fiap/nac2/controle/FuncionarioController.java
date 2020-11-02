@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fiap.nac2.modelo.Funcionario;
 import fiap.nac2.modelo.Paciente;
@@ -41,6 +42,8 @@ public class FuncionarioController extends HttpServlet {
 		
 		//request.getRequestDispatcher("WEB-INF/views/novoFuncionario.jsp").forward(request, response);
 		
+
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/views/novoFuncionario.jsp");
 		rd.forward(request, response);
 	}
@@ -51,6 +54,9 @@ public class FuncionarioController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
+
+		
+		
 		
 		String nome = request.getParameter("nome");
 		String tipo = request.getParameter("tipoFuncionario");

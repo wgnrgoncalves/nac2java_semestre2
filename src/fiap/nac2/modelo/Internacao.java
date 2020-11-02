@@ -1,6 +1,8 @@
 package fiap.nac2.modelo;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Internacao {
 private long id;
@@ -72,4 +74,12 @@ private long id;
 	public void setMotivo(LiberacaoLeito motivo) {
 		this.motivo = motivo;
 	}	
+	
+	public Date getDte() {
+		return Date.from(entrada.atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	public Date getDts() {
+		return Date.from(saida.atZone(ZoneId.systemDefault()).toInstant());
+	}
 }

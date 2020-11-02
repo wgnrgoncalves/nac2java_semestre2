@@ -25,7 +25,7 @@ public class Funcionario {
 	private String senha;
 
 	
-	public double getId() {
+	public long getId() {
 		return id;
 	}
 

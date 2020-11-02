@@ -26,4 +26,8 @@ public class PacienteBO {
 		dao.salva(pac);
 		
 	}
+	
+	public Paciente ConsultaPorId(long id) throws Exception {
+		return dao.recuperaPorId(id);
+	}
 }
