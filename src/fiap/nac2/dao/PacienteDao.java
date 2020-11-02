@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import fiap.nac2.modelo.Funcionario;
 import fiap.nac2.modelo.Paciente;
+import fiap.nac2.modelo.TipoFuncionario;
 
 
 
@@ -23,7 +26,44 @@ public class PacienteDao implements Dao<Paciente> {
 	@Override
 	public List<Paciente> recupera(Map<String, Object> param) throws Exception {
 		// TODO Auto-generated method stub
+		//return null;
+		if(param.containsKey("pesquisa")) {
+			return PesquisaPorNome((String)param.get("pesquisa"));
+		}
 		return null;
+		
+	}
+	
+	private List<Paciente> PesquisaPorNome(String pesquisa) throws Exception{
+		
+		List<Paciente> lst = new ArrayList();
+		
+		String sql = "select id, nome, telefone, email, cpf, responsavel, nascimento from tbl_paciente where nome like ?";
+		pesquisa = "%" + pesquisa + "%";		
+		try (Connection con = new ConectionFactory().getConexao();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setString(1, pesquisa);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Paciente p = new Paciente();
+				p.setId(rs.getLong(1));
+				p.setNome(rs.getString(2));
+				p.setTelefone(rs.getString(3));
+				p.setEmail(rs.getString(4));
+				p.setCpf(rs.getLong(5));
+				p.setResponsavel(rs.getString(6));
+				p.setNascimento(UtilBanco.converteDt(rs.getDate(7)));
+				lst.add(p);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return lst;
+		
+		
 	}
 
 	@Override
@@ -74,15 +114,5 @@ public class PacienteDao implements Dao<Paciente> {
 		}				
 	}
 
-	public static void main(String[] args) throws Exception {
-		Paciente pac = new Paciente();
-		pac.setNome("teste");
-		pac.setEmail("teste@fiap.com.br");
-		pac.setNascimento(LocalDate.now());
-		PacienteDao pdao = new PacienteDao();
-		pdao.salva(pac);
-		System.out.println(pac.getId());
-		
-	}
 	
 }

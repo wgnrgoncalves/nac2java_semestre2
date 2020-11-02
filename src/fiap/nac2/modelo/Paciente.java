@@ -1,6 +1,9 @@
 package fiap.nac2.modelo;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.time.LocalDateTime;
 
 
 public class Paciente {
@@ -31,6 +34,8 @@ public class Paciente {
 	}
 
 	public void setNome(String nome) {
+		if(nome != null)
+			nome = nome.toUpperCase();
 		this.nome = nome;
 	}
 
@@ -43,10 +48,13 @@ public class Paciente {
 	}
 
 	public String getEmail() {
+		
 		return email;
 	}
 
 	public void setEmail(String email) {
+		if(email != null)
+			email = email.toLowerCase();
 		this.email = email;
 	}
 
@@ -72,5 +80,11 @@ public class Paciente {
 
 	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
+	}
+	
+	public Date getDt() {
+		return java.util.Date.from(this.nascimento.atStartOfDay()
+			      .atZone(ZoneId.systemDefault())
+			      .toInstant());
 	}
 }

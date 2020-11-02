@@ -11,7 +11,7 @@
 <%@include file="../partial/header.txt" %>
  <h2>${msg}</h2>
    
-   <table>
+   <table class="table">
      <tr><td>Nome</td><td>${paciente.nome}</td></tr>
      <tr><td>CPF</td><td>${paciente.cpf}</td></tr>
      <tr><td>Email</td><td>${paciente.email}</td></tr>

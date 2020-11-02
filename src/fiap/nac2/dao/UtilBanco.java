@@ -31,6 +31,14 @@ public class UtilBanco {
 		return ldt;
 		
 	}
+	
+	public static LocalDate converteDt(Date dateSql) {
+		
+		String s = sdf.format(dateSql);
+		LocalDate ldt = LocalDate.parse(s, dtf);
+		return ldt;
+		
+	}
 
 	public static Date converte(LocalDate data) throws ParseException {
 		
@@ -40,11 +48,4 @@ public class UtilBanco {
 		return retorno;
 	}
 
-	public static void main(String[] args) throws Exception {
-		LocalDate ld = LocalDate.now();
-		Date d = UtilBanco.converte(ld);
-		System.out.println(d);
-		
-		
-	}
 }
